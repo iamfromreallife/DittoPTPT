@@ -60,6 +60,19 @@ jobs:
       - name: Build release x64
         run: msbuild CP_Main_10.sln /m /p:Configuration=Release /p:Platform=x64
 
+      - name: Stamp executable file and product version 3.25.113.0
+        shell: pwsh
+        run: |
+          & .\DittoSetup\rcedit-x64.exe .\Release64\Ditto.exe --set-file-version "3.25.113.0" --set-product-version "3.25.113.0"
+          if ($LASTEXITCODE -ne 0) { throw "Failed to stamp Ditto.exe version" }
+          $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Resolve-Path .\Release64\Ditto.exe).Path)
+          $fileVersion = "$($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart).$($info.FilePrivatePart)"
+          $productVersion = "$($info.ProductMajorPart).$($info.ProductMinorPart).$($info.ProductBuildPart).$($info.ProductPrivatePart)"
+          if ($fileVersion -ne "3.25.113.0" -or $productVersion -ne "3.25.113.0") {
+            throw "Unexpected EXE version: file=$fileVersion product=$productVersion"
+          }
+          Write-Host "Verified executable file and product version: 3.25.113.0"
+
       - name: Package original portable distribution
         shell: cmd
         run: call DittoSetup\BuildPortableZIP.bat "DittoPortable_3.25.113.0_DBPathFix_x64" bit64
@@ -79,6 +92,19 @@ jobs:
                   assert required in names, f"Portable ZIP missing: {required}"
               print(f"Verified {len(archive.namelist())} archive entries, {path.stat().st_size} bytes")
           '@ | python -
+          # Confirm that the ZIP contains the version-stamped executable,
+          # not merely that the staged Release64 binary was updated.
+          $extractDir = Join-Path $env:RUNNER_TEMP "Ditto-3.25.113.0-portable-verification"
+          Expand-Archive -LiteralPath "DittoSetup/Output/DittoPortable_3.25.113.0_DBPathFix_x64.zip" -DestinationPath $extractDir -Force
+          $portableExe = Join-Path $extractDir "Ditto.exe"
+          if (-not (Test-Path $portableExe)) { throw "Missing Ditto.exe inside ZIP" }
+          $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($portableExe)
+          $fileVersion = "$($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart).$($info.FilePrivatePart)"
+          $productVersion = "$($info.ProductMajorPart).$($info.ProductMinorPart).$($info.ProductBuildPart).$($info.ProductPrivatePart)"
+          if ($fileVersion -ne "3.25.113.0" -or $productVersion -ne "3.25.113.0") {
+            throw "Packaged Ditto.exe has incorrect version: file=$fileVersion product=$productVersion"
+          }
+          Write-Host "Verified packaged Ditto.exe version: 3.25.113.0"
 
       - name: Upload portable Windows artifact
         uses: actions/upload-artifact@v4
