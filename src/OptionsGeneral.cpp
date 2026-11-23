@@ -137,7 +137,7 @@ BOOL COptionsGeneral::OnInitDialog()
 	CGetSetOptions::GetFont(m_LogFont);	
 
 	CString cs;
-	cs.Format(_T("Font - %s (%d)"), m_LogFont.lfFaceName, GetFontSize(m_hWnd, m_LogFont));
+	cs.Format(theApp.m_Language.GetString("FontLabel", "Font - %s (%d)"), m_LogFont.lfFaceName, GetFontSize(m_hWnd, m_LogFont));
 	m_btFont.SetWindowText(cs);
 
 	FillThemes();
@@ -251,7 +251,7 @@ BOOL COptionsGeneral::OnApply()
 		if(!theApp.m_Language.LoadLanguageFile(csLanguage))
 		{
 			CString cs;
-			cs.Format(_T("Error loading language file - %s - \n\n%s"), csLanguage, theApp.m_Language.m_csLastError);
+			cs.Format(theApp.m_Language.GetString("ErrorLoadingLanguageFile", "Error loading language file - %s - \n\n%s"), csLanguage, theApp.m_Language.m_csLastError);
 
 			MessageBox(cs, _T("Ditto"), MB_OK);
 		}
@@ -268,7 +268,7 @@ BOOL COptionsGeneral::OnApply()
 		if(FileExists(resolvedPath) == FALSE)
 		{
 			CString cs;
-			cs.Format(_T("The database %s does not exist.\n\nCreate a new database?"), resolvedPath);
+			cs.Format(theApp.m_Language.GetString("DatabaseMissingCreateQuestion", "The database %s does not exist.\n\nCreate a new database?"), resolvedPath);
 
 			if(MessageBox(cs, _T("Ditto"), MB_OKCANCEL) == IDOK)
 			{
@@ -278,7 +278,7 @@ BOOL COptionsGeneral::OnApply()
 					bOpenNewDatabase = true;
 				}
 				else
-					MessageBox(_T("Error Creating Database"));
+					MessageBox(theApp.m_Language.GetString("ErrorCreatingDatabase", "Error Creating Database"));
 			}
 			else
 			{
@@ -289,7 +289,7 @@ BOOL COptionsGeneral::OnApply()
 		{
 			if(ValidDB(resolvedPath) == FALSE)
 			{
-				MessageBox(_T("Invalid Database"), _T("Ditto"), MB_OK);
+				MessageBox(theApp.m_Language.GetString("InvalidDatabase", "Invalid Database"), _T("Ditto"), MB_OK);
 				m_ePath.SetFocus();
 				return FALSE;
 			}
@@ -301,16 +301,21 @@ BOOL COptionsGeneral::OnApply()
 
 		if(bOpenNewDatabase)
 		{
-			CGetSetOptions::SetDBPath(toSavePath);
-
 			if(OpenDatabase(resolvedPath) == FALSE)
 			{
-				MessageBox(_T("Error Opening new database"), _T("Ditto"), MB_OK);
+				MessageBox(theApp.m_Language.GetString("ErrorOpeningNewDatabase", "Error Opening new database"), _T("Ditto"), MB_OK);
 				m_ePath.SetFocus();
 				return FALSE;
 			}
 			else
 			{
+				// Persist only a successfully opened path. An unsuccessful attempt
+				// must not replace the previous database location in portable mode.
+				if (!CGetSetOptions::SetDBPath(toSavePath))
+				{
+					MessageBox(theApp.m_Language.GetString("ErrorSavingDatabasePath", "Could not save the database path. Check that the settings file is writable."), _T("Ditto"), MB_OK);
+					return FALSE;
+				}
 				theApp.RefreshView();
 			}
 		}
@@ -397,7 +402,7 @@ void COptionsGeneral::OnGetPath()
 	{
 		if(ValidDB(csPath) == FALSE)
 		{
-			MessageBox(_T("Invalid Database"), _T("Ditto"), MB_OK);
+			MessageBox(theApp.m_Language.GetString("InvalidDatabase", "Invalid Database"), _T("Ditto"), MB_OK);
 			m_ePath.SetFocus();
 		}
 		else
