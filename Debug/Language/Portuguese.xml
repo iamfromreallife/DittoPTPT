@@ -478,6 +478,7 @@
 		<Item English_Text = "Delete selected items?  This cannot be undone!" ID = "DeleteSelectedItemsConfirmation">Eliminar os itens selecionados? Esta operação não pode ser anulada!</Item>
 		<Item English_Text = "Running Ditto Updates" ID = "RunningDittoUpdates">A atualizar o Ditto</Item>
 		<Item English_Text = "Error Sending data to %s\n\n%s" ID = "ErrorSendingData">Erro ao enviar dados para %s\n\n%s</Item>
+			<Item English_Text = "Description Options" ID = "DescriptionOptionsTooltip">Opções de descrição</Item>
 	</Ditto_String_Table>
 	<Ditto_Options_Sheet>
 		<Item English_Text = "OK" ID = "1">Aceitar</Item>
