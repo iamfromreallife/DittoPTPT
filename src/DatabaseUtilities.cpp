@@ -96,6 +96,9 @@ CString GetDefaultDBName()
 
 BOOL CheckDBExists(CString csDBPath)
 {
+	// Once the user has selected a database, never replace that setting just
+	// because the file (or its drive) is temporarily unavailable at startup.
+	const bool hasConfiguredPath = !csDBPath.IsEmpty();
 	CPath path(csDBPath);
 
 	//If this is the first time running this version then convert the old database to the new db
@@ -108,6 +111,14 @@ BOOL CheckDBExists(CString csDBPath)
 	BOOL bRet = FALSE;
 	if (FileExists(csDBPath) == FALSE)
 	{
+		if (hasConfiguredPath)
+		{
+			// Do not create a replacement database or rewrite DBPath3.
+			// The startup retry mechanism will reopen the original path when available.
+			Log(StrF(_T("Configured database is unavailable, retaining path: %s"), csDBPath));
+			return FALSE;
+		}
+
 		//if the database is on a shared drive, network share or anything other than C:\ than don't create a new db
 		//Ditto will wait until that drive is available
 		int len = 0;
@@ -144,6 +155,13 @@ BOOL CheckDBExists(CString csDBPath)
 	{
 		if (ValidDB(csDBPath) == FALSE)
 		{
+			if (hasConfiguredPath)
+			{
+				// Never rename or replace a user-selected database automatically.
+				Log(StrF(_T("Configured database could not be validated, retaining path: %s"), csDBPath));
+				return FALSE;
+			}
+
 			//Db existed but was bad
 			CString csMarkAsBad;
 

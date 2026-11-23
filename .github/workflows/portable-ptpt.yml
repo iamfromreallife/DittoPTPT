@@ -1,0 +1,41 @@
+name: Portable Windows build (PT-PT)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix/ptpt-localization-portable-dbpath
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Check translation completeness and XML
+        run: python scripts/verify_ptpt.py
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet dependencies
+        run: nuget restore CP_Main_10.sln
+
+      - name: Build Ditto x64 Release
+        run: msbuild CP_Main_10.sln /m /p:Configuration=Release /p:Platform=x64
+
+      - name: Package portable Ditto
+        shell: cmd
+        run: call DittoSetup\BuildPortableZIP.bat "DittoPortable_PTPT" bit64
+
+      - name: Publish portable ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DittoPortable-PTPT-Windows-x64
+          path: DittoSetup/output/DittoPortable_PTPT.zip
+          if-no-files-found: error
+          retention-days: 30

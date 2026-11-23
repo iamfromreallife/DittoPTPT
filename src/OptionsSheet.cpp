@@ -120,7 +120,7 @@ BOOL COptionsSheet::OnInitDialog()
 
 	BOOL bResult = CPropertySheet::OnInitDialog();
 
-	SetWindowText(_T("Options"));
+	SetWindowText(theApp.m_Language.GetString("OptionsTitle", "Options"));
 
 	theApp.m_Language.UpdateOptionsSheet(this);
 
