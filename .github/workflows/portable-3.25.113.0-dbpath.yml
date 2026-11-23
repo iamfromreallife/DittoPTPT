@@ -96,8 +96,8 @@ jobs:
           # not merely that the staged Release64 binary was updated.
           $extractDir = Join-Path $env:RUNNER_TEMP "Ditto-3.25.113.0-portable-verification"
           Expand-Archive -LiteralPath "DittoSetup/Output/DittoPortable_3.25.113.0_DBPathFix_x64.zip" -DestinationPath $extractDir -Force
-          $portableExe = Join-Path $extractDir "Ditto.exe"
-          if (-not (Test-Path $portableExe)) { throw "Missing Ditto.exe inside ZIP" }
+          $portableExe = Join-Path $extractDir "Ditto\Ditto.exe"
+          if (-not (Test-Path $portableExe)) { throw "Missing Ditto/Ditto.exe inside ZIP" }
           $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($portableExe)
           $fileVersion = "$($info.FileMajorPart).$($info.FileMinorPart).$($info.FileBuildPart).$($info.FilePrivatePart)"
           $productVersion = "$($info.ProductMajorPart).$($info.ProductMinorPart).$($info.ProductBuildPart).$($info.ProductPrivatePart)"
