@@ -1,0 +1,89 @@
+name: Ditto 3.25.113.0 - Portable DB Path Fix
+
+on:
+  push:
+    branches:
+      - fix/3.25.113.0-portable-dbpath-only
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable-x64:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout exact source and commit history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify upstream 3.25.113.0 and database-fix-only diff
+        shell: pwsh
+        run: |
+          $base = "81a667c790f5a6c9b6b63f187eb75e79bf159670"
+          git cat-file -e "$base^{commit}"
+          if ($LASTEXITCODE -ne 0) { throw "Upstream 3.25.113.0 commit is missing" }
+          $changed = @(git diff --name-only $base HEAD | Sort-Object)
+          $expected = @(
+            ".github/workflows/portable-3.25.113.0-dbpath.yml",
+            "src/DatabaseUtilities.cpp",
+            "src/OptionsGeneral.cpp"
+          ) | Sort-Object
+          $unexpected = Compare-Object -ReferenceObject $expected -DifferenceObject $changed
+          if ($unexpected) {
+            $unexpected | Out-String | Write-Host
+            throw "Branch contains unexpected modifications beyond the database fix and this workflow"
+          }
+          $db = Get-Content src/DatabaseUtilities.cpp -Raw
+          $options = Get-Content src/OptionsGeneral.cpp -Raw
+          if (-not $db.Contains("const bool configuredDatabase = !csDBPath.IsEmpty();")) {
+            throw "Configured database detection is missing"
+          }
+          if (([regex]::Matches($db, "if \(configuredDatabase\)")).Count -ne 2) {
+            throw "Missing database-missing and validation-failure protection"
+          }
+          if (([regex]::Matches($options, "SetDBPath\(toSavePath\)")).Count -ne 1) {
+            throw "Database path must be saved in exactly one place"
+          }
+          if ($options.IndexOf("if(OpenDatabase(resolvedPath) == FALSE)") -gt $options.IndexOf("SetDBPath(toSavePath)")) {
+            throw "Path is still persisted before successfully opening the database"
+          }
+          Write-Host "Verified: upstream 3.25.113.0 plus only the database-path fix"
+
+      - name: Prepare MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore CP_Main_10.sln
+
+      - name: Build release x64
+        run: msbuild CP_Main_10.sln /m /p:Configuration=Release /p:Platform=x64
+
+      - name: Package original portable distribution
+        shell: cmd
+        run: call DittoSetup\BuildPortableZIP.bat "DittoPortable_3.25.113.0_DBPathFix_x64" bit64
+
+      - name: Check portable ZIP contents
+        shell: pwsh
+        run: |
+          @'
+          from pathlib import Path
+          from zipfile import ZipFile
+          path = Path("DittoSetup/Output/DittoPortable_3.25.113.0_DBPathFix_x64.zip")
+          assert path.is_file() and path.stat().st_size > 1_000_000, "Portable ZIP missing or empty"
+          with ZipFile(path) as archive:
+              assert archive.testzip() is None, "Portable ZIP contains a corrupt member"
+              names = {Path(name.replace("\\", "/")).name.lower() for name in archive.namelist()}
+              for required in ("ditto.exe", "portable", "icu_loader.dll"):
+                  assert required in names, f"Portable ZIP missing: {required}"
+              print(f"Verified {len(archive.namelist())} archive entries, {path.stat().st_size} bytes")
+          '@ | python -
+
+      - name: Upload portable Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ditto-3.25.113.0-Portable-DBPathFix-x64
+          path: DittoSetup/Output/DittoPortable_3.25.113.0_DBPathFix_x64.zip
+          if-no-files-found: error
+          retention-days: 30
