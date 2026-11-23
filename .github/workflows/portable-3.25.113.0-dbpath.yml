@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   portable-x64:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - name: Checkout exact source and commit history
         uses: actions/checkout@v4
