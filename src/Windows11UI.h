@@ -11,6 +11,7 @@
 #include <cwchar>
 #pragma comment(lib, "dwmapi.lib")
 #pragma comment(lib, "uxtheme.lib")
+#pragma comment(lib, "advapi32.lib")
 
 namespace DittoWindows11
 {
