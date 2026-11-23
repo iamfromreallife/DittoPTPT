@@ -86,7 +86,7 @@ BOOL CAbout::OnInitDialog()
 
 	m_List.AddString(_T(""));
 
-	m_List.AddString(_T("Credits"));
+	m_List.AddString(theApp.m_Language.GetString("Credits", "Credits"));
 	
 	cs = "    Authors - Scott Brogden, sabrogden@users.sourceforge.net";
 	m_List.AddString(cs);
@@ -95,7 +95,7 @@ BOOL CAbout::OnInitDialog()
 
 	m_List.AddString(_T(""));
 
-	m_List.AddString(_T("Addins"));
+	m_List.AddString(theApp.m_Language.GetString("Addins", "Addins"));
 
 	//Show what addins are loaded
 	CStringArray arr;

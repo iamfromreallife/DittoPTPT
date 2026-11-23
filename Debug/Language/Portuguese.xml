@@ -460,6 +460,24 @@
 		<Item English_Text = "Options" ID = "OptionsTitle">Opções</Item>
 		<Item English_Text = "Font - %s (%d)" ID = "FontLabel">Tipo de letra — %s (%d)</Item>
 		<Item English_Text = "Error loading language file - %s - \n\n%s" ID = "ErrorLoadingLanguageFile">Erro ao carregar o ficheiro de idioma — %s — \n\n%s</Item>
+			<Item English_Text = "Ditto is running minimized, Ditto can be opened by hot keys or by clicking the task tray icon" ID = "StartupMsg">O Ditto está em execução, minimizado. Pode abri-lo através dos atalhos de teclado ou do ícone na área de notificação.</Item>
+		<Item English_Text = "Always on Top Enabled" ID = "TurnOfAlwaysOntop">Modo «Sempre visível» ativado</Item>
+		<Item English_Text = "[Starred clips]" ID = "starred_clips">[Recortes favoritos]</Item>
+		<Item English_Text = "Show Starred Clips" ID = "ShowStarredClips">Mostrar recortes favoritos</Item>
+		<Item English_Text = "There are no starred clips" ID = "NoStarredClips">Não existem recortes favoritos</Item>
+		<Item English_Text = "Delete Group?" ID = "Delete_Clip_Groups">Eliminar o grupo?</Item>
+		<Item English_Text = "Delete all clips that are not groups, in groups, marked as never auto delete, has a shortcut key or marked as sticky.\n\nThis cannot be undone." ID = "Delete_All_Non_Used_Clips">Eliminar todos os recortes não protegidos: os que não são grupos, não pertencem a grupos, não estão marcados como permanentes, não têm atalhos e não estão fixados.\n\nEsta operação não pode ser anulada.</Item>
+		<Item English_Text = "Credits" ID = "Credits">Créditos</Item>
+		<Item English_Text = "Addins" ID = "Addins">Extensões</Item>
+		<Item English_Text = "Click" ID = "MouseClick">Clique</Item>
+		<Item English_Text = "Double Click" ID = "MouseDoubleClick">Duplo clique</Item>
+		<Item English_Text = "Right Click" ID = "MouseRightClick">Clique com o botão direito</Item>
+		<Item English_Text = "Middle Click" ID = "MouseMiddleClick">Clique com o botão do meio</Item>
+		<Item English_Text = "Error registering global hot key\n\nContinue?" ID = "GlobalHotkeyRegistrationError">Não foi possível registar o atalho global.\n\nContinuar?</Item>
+		<Item English_Text = "Error registering global move to group hot key\n\nContinue?" ID = "GroupHotkeyRegistrationError">Não foi possível registar o atalho global para mover para um grupo.\n\nContinuar?</Item>
+		<Item English_Text = "Delete selected items?  This cannot be undone!" ID = "DeleteSelectedItemsConfirmation">Eliminar os itens selecionados? Esta operação não pode ser anulada!</Item>
+		<Item English_Text = "Running Ditto Updates" ID = "RunningDittoUpdates">A atualizar o Ditto</Item>
+		<Item English_Text = "Error Sending data to %s\n\n%s" ID = "ErrorSendingData">Erro ao enviar dados para %s\n\n%s</Item>
 	</Ditto_String_Table>
 	<Ditto_Options_Sheet>
 		<Item English_Text = "OK" ID = "1">Aceitar</Item>

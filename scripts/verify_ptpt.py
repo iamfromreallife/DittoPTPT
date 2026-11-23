@@ -34,4 +34,20 @@ for reference in (english, brazil):
 if missing or untranslated:
     raise SystemExit(f"Missing pt-PT entries: {missing}\nBlank translations: {untranslated}")
 assert portugal.attrib.get("LanguageCode") == "pt_PT"
-print(f"pt-PT coverage passed: {len(pt)} identifiers, English and Brazilian reference sets checked")
+
+# Verify all runtime GetString calls in the application's own C++ source.
+import re
+string_table = {
+    item.get("ID") for item in portugal.find("Ditto_String_Table").findall("Item")
+}
+untranslated_cpp = {}
+for source_file in (root.parent.parent / "src").glob("*.cpp"):
+    source = source_file.read_text(encoding="utf-8-sig", errors="replace")
+    keys_used = set(re.findall(
+        r'\bGetString\s*\(\s*(?:_T\s*\(\s*)?"([A-Za-z_]\w*)"', source))
+    missing_keys = sorted(keys_used - string_table)
+    if missing_keys:
+        untranslated_cpp[source_file.name] = missing_keys
+if untranslated_cpp:
+    raise SystemExit(f"Missing C++ GetString translations: {untranslated_cpp}")
+print(f"pt-PT coverage passed: {len(pt)} identifiers; C++ UI keys and both reference files checked")

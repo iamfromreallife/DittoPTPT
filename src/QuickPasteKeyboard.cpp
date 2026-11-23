@@ -68,28 +68,28 @@ BOOL CQuickPasteKeyboard::OnInitDialog()
 	InitListCtrlCols();
 	LoadItems();
 
-	int pos = m_mouseType1.AddString(_T("Click"));
+	int pos = m_mouseType1.AddString(theApp.m_Language.GetString("MouseClick", "Click"));
 	m_mouseType1.SetItemData(pos, VK_MOUSE_CLICK);
 
-	pos = m_mouseType1.AddString(_T("Double Click"));
+	pos = m_mouseType1.AddString(theApp.m_Language.GetString("MouseDoubleClick", "Double Click"));
 	m_mouseType1.SetItemData(pos, VK_MOUSE_DOUBLE_CLICK);
 
-	pos = m_mouseType1.AddString(_T("Right Click"));
+	pos = m_mouseType1.AddString(theApp.m_Language.GetString("MouseRightClick", "Right Click"));
 	m_mouseType1.SetItemData(pos, VK_MOUSE_RIGHT_CLICK);
 
-	pos = m_mouseType1.AddString(_T("Middle Click"));
+	pos = m_mouseType1.AddString(theApp.m_Language.GetString("MouseMiddleClick", "Middle Click"));
 	m_mouseType1.SetItemData(pos, VK_MOUSE_MIDDLE_CLICK);
 
-	pos = m_mouseType2.AddString(_T("Click"));
+	pos = m_mouseType2.AddString(theApp.m_Language.GetString("MouseClick", "Click"));
 	m_mouseType2.SetItemData(pos, VK_MOUSE_CLICK);
 
-	pos = m_mouseType2.AddString(_T("Double Click"));
+	pos = m_mouseType2.AddString(theApp.m_Language.GetString("MouseDoubleClick", "Double Click"));
 	m_mouseType2.SetItemData(pos, VK_MOUSE_DOUBLE_CLICK);
 
-	pos = m_mouseType2.AddString(_T("Right Click"));
+	pos = m_mouseType2.AddString(theApp.m_Language.GetString("MouseRightClick", "Right Click"));
 	m_mouseType2.SetItemData(pos, VK_MOUSE_RIGHT_CLICK);
 
-	pos = m_mouseType2.AddString(_T("Middle Click"));
+	pos = m_mouseType2.AddString(theApp.m_Language.GetString("MouseMiddleClick", "Middle Click"));
 	m_mouseType2.SetItemData(pos, VK_MOUSE_MIDDLE_CLICK);
 
 	m_mouseType1.SetCurSel(0);
