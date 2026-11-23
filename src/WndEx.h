@@ -83,6 +83,7 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMoving(UINT fwSide, LPRECT pRect);
 	afx_msg void OnEnterSizeMove();
+	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
 };
 
 /////////////////////////////////////////////////////////////////////////////

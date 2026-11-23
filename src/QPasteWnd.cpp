@@ -23,6 +23,7 @@
 #include "Path.h"
 #include "ProcessPaste.h"
 #include "QPasteWnd.h"
+#include "Windows11UI.h"
 #include "SendMail.h"
 #include <algorithm>
 #include <signal.h>
@@ -507,8 +508,10 @@ int CQPasteWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	m_alwaysOnToWarningStatic.Create(onTopMsg, WS_CHILD | SS_CENTERIMAGE | SS_NOTIFY, CRect(0, 0, 0, 0), this, ON_TOP_WARNING);
-	m_alwaysOnToWarningStatic.SetBkColor(COLORREF(RGB(255, 255, 0)));
-	m_alwaysOnToWarningStatic.SetTextColor(COLORREF(RGB(0, 0, 255)));
+	// Muted Fluent-style status strip instead of the legacy neon yellow/blue.
+	const bool useDarkWarning = DittoWindows11::DarkAppsEnabled();
+	m_alwaysOnToWarningStatic.SetBkColor(useDarkWarning ? RGB(73, 54, 28) : RGB(255, 243, 205));
+	m_alwaysOnToWarningStatic.SetTextColor(useDarkWarning ? RGB(255, 218, 147) : RGB(115, 74, 19));
 	m_alwaysOnToWarningStatic.SetToggleCursor(true);
 	m_alwaysOnToWarningStatic.SetFont(&m_groupFont);
 

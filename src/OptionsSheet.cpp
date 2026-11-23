@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CP_Main.h"
 #include "OptionsSheet.h"
+#include "Windows11UI.h"
 #include "OptionsKeyBoard.h"
 #include "OptionsGeneral.h"
 #include "OptionsQuickPaste.h"
@@ -119,6 +120,9 @@ BOOL COptionsSheet::OnInitDialog()
 	SetIcon(b, TRUE);
 
 	BOOL bResult = CPropertySheet::OnInitDialog();
+
+	// Native Windows 11 rounded corners, caption theme and backdrop.
+	DittoWindows11::ApplyDialogChrome(m_hWnd);
 
 	SetWindowText(theApp.m_Language.GetString("OptionsTitle", "Options"));
 

@@ -508,7 +508,33 @@ void CQListCtrl::OnCustomdrawList(NMHDR* pNMHDR, LRESULT* pResult)
 			}
 		}
 
-		pDC->FillSolidRect(rcItem, crBkgnd);
+		// A softly rounded selection follows Windows 11 list presentation.
+		// The control remains owner-drawn and retains its existing selection,
+		// context menu, hit testing and keyboard navigation.
+		if (rItem.state & LVIS_SELECTED)
+		{
+			COLORREF base = (nItem % 2) == 0
+				? CGetSetOptions::m_Theme.ListBoxOddRowsBG()
+				: CGetSetOptions::m_Theme.ListBoxEvenRowsBG();
+			pDC->FillSolidRect(rcItem, base);
+
+			CRect selection = rcItem;
+			selection.DeflateRect(m_windowDpi->Scale(3), m_windowDpi->Scale(1));
+			if (selection.Width() > 0 && selection.Height() > 0)
+			{
+				CPen noOutline(PS_NULL, 0, crBkgnd);
+				CBrush brush(crBkgnd);
+				CPen* oldPen = pDC->SelectObject(&noOutline);
+				CBrush* oldBrush = pDC->SelectObject(&brush);
+				pDC->RoundRect(selection, CPoint(m_windowDpi->Scale(8), m_windowDpi->Scale(8)));
+				pDC->SelectObject(oldBrush);
+				pDC->SelectObject(oldPen);
+			}
+		}
+		else
+		{
+			pDC->FillSolidRect(rcItem, crBkgnd);
+		}
 		nOldBKMode = pDC->SetBkMode(TRANSPARENT);
 
 		CRect rcText = rcItem;

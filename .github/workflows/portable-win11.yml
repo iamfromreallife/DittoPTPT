@@ -1,0 +1,44 @@
+name: Portable Windows 11 UI build
+
+on:
+  push:
+    branches:
+      - feature/windows11-modern-ui
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    runs-on: windows-latest
+    steps:
+      - name: Check out final source commit
+        uses: actions/checkout@v4
+
+      - name: Validate European Portuguese language resources
+        run: python scripts/verify_ptpt.py
+
+      - name: Validate Windows 11 UI assets and packaging
+        run: python scripts/verify_win11_ui.py
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore CP_Main_10.sln
+
+      - name: Compile native Windows x64 Release
+        run: msbuild CP_Main_10.sln /m /p:Configuration=Release /p:Platform=x64
+
+      - name: Create self-contained portable ZIP with all themes
+        shell: cmd
+        run: call DittoSetup\BuildPortableZIP.bat "DittoPortable_Windows11_UI" bit64
+
+      - name: Publish Windows x64 portable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: DittoPortable-Windows11-UI-x64
+          path: DittoSetup/output/DittoPortable_Windows11_UI.zip
+          if-no-files-found: error
+          retention-days: 30
