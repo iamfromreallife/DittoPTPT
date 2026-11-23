@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <dwmapi.h>
 #include <uxtheme.h>
+#include <commctrl.h>
 #include <cwchar>
 #pragma comment(lib, "dwmapi.lib")
 #pragma comment(lib, "uxtheme.lib")

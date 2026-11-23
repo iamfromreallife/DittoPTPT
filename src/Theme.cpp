@@ -22,40 +22,40 @@ CTheme::~CTheme(void)
 
 void CTheme::LoadDefaults()
 {
-	m_CaptionLeft = RGB(255, 255, 255);
-	m_CaptionRight = RGB(204, 204, 204);
+	m_CaptionLeft = RGB(250, 250, 250);
+	m_CaptionRight = RGB(244, 244, 244);
 
-	m_Border = RGB(204, 204, 204);
-	m_BorderTopMost = RGB(204, 204, 204);
-	m_BorderNotConnected = RGB(204, 204, 204);
+	m_Border = RGB(218, 218, 218);
+	m_BorderTopMost = RGB(156, 203, 235);
+	m_BorderNotConnected = RGB(229, 166, 66);
 
-	m_CaptionLeftTopMost = RGB(255, 255, 255);
-	m_CaptionRightTopMost = RGB(204, 204, 204);
+	m_CaptionLeftTopMost = RGB(231, 241, 251);
+	m_CaptionRightTopMost = RGB(237, 246, 255);
 	
-	m_CaptionLeftNotConnected = RGB(255, 255, 255);
-	m_CaptionRightNotConnected = RGB(255, 255, 0);
+	m_CaptionLeftNotConnected = RGB(255, 242, 222);
+	m_CaptionRightNotConnected = RGB(255, 247, 235);
 
-	m_CaptionTextColor = RGB(191, 191, 191);
+	m_CaptionTextColor = RGB(36, 36, 36);
 	m_ListBoxOddRowsBG = RGB(255, 255, 255);
-	m_ListBoxEvenRowsBG = RGB(243, 243, 243);
+	m_ListBoxEvenRowsBG = RGB(248, 248, 248);
 	m_ListBoxOddRowsText = RGB(0, 0, 0);
 	m_ListBoxEvenRowsText = RGB(0, 0, 0);
-	m_ListBoxSelectedBG = RGB(204, 204, 204);
-	m_ListBoxSelectedNoFocusBG = RGB(204, 204, 204);
+	m_ListBoxSelectedBG = RGB(220, 238, 255);
+	m_ListBoxSelectedNoFocusBG = RGB(234, 234, 234);
 	m_ListBoxSelectedText = RGB(0, 0, 0);
 	m_ListBoxSelectedNoFocusText = RGB(0, 0, 0);
-	m_clipPastedColor = RGB(0, 255, 0);
+	m_clipPastedColor = RGB(16, 124, 16);
 	m_listSmallQuickPasteIndexColor = RGB(180, 180, 180);
-	m_mainWindowBG = RGB(240, 240, 240);
+	m_mainWindowBG = RGB(243, 243, 243);
 	m_searchTextBoxFocusBG = RGB(255, 255, 255);
 	m_searchTextBoxFocusText = RGB(0, 0, 0);
-	m_searchTextBoxFocusBorder = RGB(255, 255, 255);
-	m_searchTextHighlight = RGB(255, 0, 0);
+	m_searchTextBoxFocusBorder = RGB(0, 103, 192);
+	m_searchTextHighlight = RGB(0, 103, 192);
 
-	m_groupTreeBG = RGB(240, 240, 240);
-	m_groupTreeText = RGB(127, 127, 127);
+	m_groupTreeBG = RGB(243, 243, 243);
+	m_groupTreeText = RGB(66, 66, 66);
 
-	m_descriptionWindowBG = RGB(240, 240, 240);// GetSysColor(COLOR_INFOBK);//RGB(240, 240, 240);//
+	m_descriptionWindowBG = RGB(250, 250, 250);// GetSysColor(COLOR_INFOBK);//RGB(240, 240, 240);//
 	/*int r = GetRValue(m_descriptionWindowBG);
 	int g = GetGValue(m_descriptionWindowBG);
 	int b = GetBValue(m_descriptionWindowBG);*/
@@ -63,12 +63,12 @@ void CTheme::LoadDefaults()
 	m_descriptionWindowText = RGB(0, 0, 0);
 
 	// Modern scrollbar defaults - rounded look
-	m_scrollBarThumb = RGB(180, 180, 180);
-	m_scrollBarThumbHover = RGB(140, 140, 140);
-	m_scrollBarTrack = RGB(240, 240, 240);
+	m_scrollBarThumb = RGB(184, 184, 184);
+	m_scrollBarThumbHover = RGB(128, 128, 128);
+	m_scrollBarTrack = RGB(242, 242, 242);
 
-	m_captionSize = 25;
-	m_captionFontSize = 19;
+	m_captionSize = 32;
+	m_captionFontSize = 15;
 }
 
 bool CTheme::Load(CString csTheme, bool bHeaderOnly, bool bCheckLastWriteTime)

@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CWndEx, CWnd)
 ON_WM_SIZE()
 ON_WM_MOVING()
 ON_WM_ENTERSIZEMOVE()
+ON_WM_SETTINGCHANGE()
 END_MESSAGE_MAP()
 
 
@@ -338,4 +339,26 @@ void CWndEx::OnEnterSizeMove()
 	m_snap.OnSnapEnterSizeMove(m_hWnd);
 
 	CWnd::OnEnterSizeMove();
+}
+
+
+void CWndEx::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
+{
+	CWnd::OnSettingChange(uFlags, lpszSection);
+
+	if (!::IsWindow(m_hWnd))
+		return;
+
+	DittoWindows11::ApplyWindowChrome(m_hWnd, false);
+
+	// The default Ditto theme follows the current Windows app light/dark
+	// preference. Refresh already-open clipboard windows, not just the next
+	// time the user opens Quick Paste.
+	if (CGetSetOptions::GetTheme().IsEmpty())
+	{
+		CGetSetOptions::m_Theme.Load(_T(""), false, false);
+		SetCaptionColorActive(CGetSetOptions::m_bShowPersistent, theApp.GetConnectCV());
+		::RedrawWindow(m_hWnd, nullptr, nullptr,
+			RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_ALLCHILDREN);
+	}
 }
