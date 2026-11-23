@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CP_Main.h"
+#include "Windows11UI.h"
 #include "MainFrm.h"
 #include "Misc.h"
 #include ".\cp_main.h"
@@ -217,6 +218,10 @@ BOOL CCP_MainApp::InitInstance()
 	ParseCommandLine(cmdInfo);
 
 	CGetSetOptions::LoadSettings();
+
+	// Apply Windows 11 chrome to every top-level MFC dialog without replacing
+	// legacy controls or interfering with the clipboard and hotkey handlers.
+	DittoWindows11::InstallDialogHook();
 
 	theApp.m_activeWnd.TrackActiveWnd(false);
 
@@ -926,6 +931,8 @@ int CCP_MainApp::ExitInstance()
 		}
 		delete m_pUacPasteThread;
 	}
+
+	DittoWindows11::RemoveDialogHook();
 
 	Gdiplus::GdiplusShutdown(m_gdiplusToken);
 

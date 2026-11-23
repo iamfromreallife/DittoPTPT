@@ -80,8 +80,13 @@ bool CTheme::Load(CString csTheme, bool bHeaderOnly, bool bCheckLastWriteTime)
 
 		if (DarkAppWindows10Setting())
 		{
-			csTheme = _T("DarkerDitto");
-			Log(_T("Loading theme based on windows setting of dark mode for apps"));			
+			csTheme = _T("Windows11Dark");
+			Log(_T("Loading Windows 11 dark theme based on the Windows app setting"));
+		}
+		else
+		{
+			csTheme = _T("Windows11Light");
+			Log(_T("Loading Windows 11 light theme based on the Windows app setting"));
 		}
 	}
 

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CP_Main.h"
 #include "MainFrm.h"
+#include "Windows11UI.h"
 #include "afxole.h"
 #include "Misc.h"
 #include "CopyProperties.h"
@@ -120,6 +121,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return  - 1;
     }
 
+	DittoWindows11::ApplyWindowChrome(m_hWnd, false);
 	m_PowerManager.Start(m_hWnd);
 
     ////Center the main window so message boxes are in the center

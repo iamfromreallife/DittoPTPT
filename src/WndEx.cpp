@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CP_Main.h"
 #include "WndEx.h"
+#include "Windows11UI.h"
 #include ".\wndex.h"
 
 #ifdef _DEBUG
@@ -97,6 +98,7 @@ int CWndEx::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	
+	DittoWindows11::ApplyWindowChrome(m_hWnd, false);
 	m_DittoWindow.DoCreate(this);
 	m_DittoWindow.m_bDrawMinimize = false;
 	m_DittoWindow.m_bDrawMaximize = false;

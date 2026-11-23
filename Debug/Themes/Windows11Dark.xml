@@ -1,0 +1,35 @@
+<Ditto_Theme_File Version="3" Author="DittoPTPT" Notes="Windows 11 Dark: Fluent-inspired system palette">
+	<CaptionLeft>RGB(41,41,41)</CaptionLeft>
+	<CaptionRight>RGB(37,37,37)</CaptionRight>
+	<CaptionLeftTopMost>RGB(37,57,73)</CaptionLeftTopMost>
+	<CaptionRightTopMost>RGB(40,60,78)</CaptionRightTopMost>
+	<CaptionLeftNotConnected>RGB(73,54,44)</CaptionLeftNotConnected>
+	<CaptionRightNotConnected>RGB(73,51,43)</CaptionRightNotConnected>
+	<CaptionTextColor>RGB(245,245,245)</CaptionTextColor>
+	<ListBoxOddRowsBG>RGB(37,37,37)</ListBoxOddRowsBG>
+	<ListBoxEvenRowsBG>RGB(43,43,43)</ListBoxEvenRowsBG>
+	<ListBoxOddRowsText>RGB(242,242,242)</ListBoxOddRowsText>
+	<ListBoxEvenRowsText>RGB(238,238,238)</ListBoxEvenRowsText>
+	<ListBoxSelectedBG>RGB(40,79,112)</ListBoxSelectedBG>
+	<ListBoxSelectedNoFocusBG>RGB(60,60,60)</ListBoxSelectedNoFocusBG>
+	<ListBoxSelectedText>RGB(255,255,255)</ListBoxSelectedText>
+	<ListBoxSelectedNoFocusText>RGB(233,233,233)</ListBoxSelectedNoFocusText>
+	<Border>RGB(72,72,72)</Border>
+	<BorderTopMost>RGB(84,133,169)</BorderTopMost>
+	<BorderNotConnected>RGB(169,104,65)</BorderNotConnected>
+	<GroupTreeBG>RGB(32,32,32)</GroupTreeBG>
+	<GroupTreeText>RGB(214,214,214)</GroupTreeText>
+	<CaptionSize>32</CaptionSize>
+	<CaptionFontSize>15</CaptionFontSize>
+	<DescriptionWindowBG>RGB(41,41,41)</DescriptionWindowBG>
+	<DescriptionWindowText>RGB(242,242,242)</DescriptionWindowText>
+	<ClipPastedColor>RGB(108,203,95)</ClipPastedColor>
+	<MainWindowBG>RGB(32,32,32)</MainWindowBG>
+	<SearchTextBoxFocusBG>RGB(48,48,48)</SearchTextBoxFocusBG>
+	<SearchTextBoxFocusText>RGB(248,248,248)</SearchTextBoxFocusText>
+	<SearchTextBoxFocusBorder>RGB(76,194,255)</SearchTextBoxFocusBorder>
+	<SearchTextHighlight>RGB(76,194,255)</SearchTextHighlight>
+	<ScrollBarThumb>RGB(103,103,103)</ScrollBarThumb>
+	<ScrollBarThumbHover>RGB(146,146,146)</ScrollBarThumbHover>
+	<ScrollBarTrack>RGB(41,41,41)</ScrollBarTrack>
+</Ditto_Theme_File>
