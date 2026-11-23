@@ -299,8 +299,7 @@ BOOL COptionsGeneral::OnApply()
 
 		if(bOpenNewDatabase)
 		{
-			CGetSetOptions::SetDBPath(toSavePath);
-
+			// Do not persist the new database location before it opens.
 			if(OpenDatabase(resolvedPath) == FALSE)
 			{
 				MessageBox(_T("Error Opening new database"), _T("Ditto"), MB_OK);
@@ -309,6 +308,12 @@ BOOL COptionsGeneral::OnApply()
 			}
 			else
 			{
+				// Keep the previous saved path if opening or saving the new one fails.
+				if (!CGetSetOptions::SetDBPath(toSavePath))
+				{
+					MessageBox(_T("Could not save the database path. Check that the settings file is writable."), _T("Ditto"), MB_OK);
+					return FALSE;
+				}
 				theApp.RefreshView();
 			}
 		}
