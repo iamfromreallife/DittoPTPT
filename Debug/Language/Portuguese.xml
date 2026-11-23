@@ -166,7 +166,7 @@
 		<Item English_Text = "Hot Key" ID = "2039">Atalho</Item>
 		<Item English_Text = "Hot Key" ID = "2039">Atalho</Item>
 		<Item English_Text = "Date" ID = "2040">Data</Item>
-		<Item English_Text = "&Never Auto Delete" ID = "1025">&amp;Sem eliminação automática</Item>
+		<Item English_Text = "&amp;Never Auto Delete" ID = "1025">&amp;Sem eliminação automática</Item>
 		<Item English_Text = "Parse" ID = "1040">Analisar</Item>
 		<Item English_Text = "Move To Group" ID = "2041">Mover para grupo</Item>
 		<Item English_Text = "Item Title" ID = "2042">Título do item</Item>
@@ -222,8 +222,8 @@
 		<Item English_Text = "Advanced" ID = "2124">Avançadas</Item>
 	</Ditto_Options_General>
 	<Ditto_Options_Supported_Types>
-		<Item English_Text = "&Add" ID = "1015">&amp;Adicionar</Item>
-		<Item English_Text = "&Delete" ID = "1016">&amp;Eliminar</Item>
+		<Item English_Text = "&amp;Add" ID = "1015">&amp;Adicionar</Item>
+		<Item English_Text = "&amp;Delete" ID = "1016">&amp;Eliminar</Item>
 		<Item English_Text = "Supported Types" ID = "-1" PropertyPage = "true">Formatos suportados</Item>		
 		//New item added 12/17/16
 		<Item English_Text = "Current Clipboard Types" ID = "2128">Formatos atuais da área de transferência</Item>
